@@ -10,7 +10,7 @@ const router = express.Router();
 const generateToken = (user = {})=>{
     return jwt.sign({
         id: user.id,
-        name: user.name
+        email: user.email
     }, authConfig.secret,{
         expiresIn: 86400
     });
@@ -37,7 +37,7 @@ router.post("/register", async(req, res)=>{
     });
 
 });
-router.post("/authenticate", async(req, res)=>{
+router.post("/login", async(req, res)=>{
     
     const {email, password} = req.body;
 
@@ -57,11 +57,17 @@ router.post("/authenticate", async(req, res)=>{
         })
    };
     user.password = undefined;
+    // const token = jwt.sign({
+    //     id: user.id,
+    //     name: user.name
+    // }, authConfig.secret,{
+    //     expiresIn:"1d"
+    // })
 
-    return res.json({
-        user,
-        token: generateToken(user)
-    });
+     return res.json({
+         user,
+         token: generateToken(user)
+     });
    
 });
 

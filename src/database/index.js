@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb+srv://tallos:tallos@apitallos.md59bha.mongodb.net/APITallos?retryWrites=true&w=majority",{},(error)=>{
+mongoose.connect("mongodb+srv://tallos:tallos@apitallos.md59bha.mongodb.net/?retryWrites=true&w=majority",{},(error)=>{
     if(error){
         console.log("Falha ao conectar ao banco");
         console.log(error);

@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const user = require("../models/user");
+const jwt = require('jsonwebtoken');
+const authConfig = require("../config/auth.json");
+const login = require ('../middlewares/login')
 
-router.get("/users",(req, res)=>{
+
+router.get("/users",login.obrigatorio,(req, res)=>{
     user.find((err,user)=>{
         res.status(200).json(user)
     })
@@ -14,7 +18,7 @@ router.get("/users",(req, res)=>{
        }
 })
 
-router.get("/users/:id",async (req, res)=>{
+router.get("/users/:id",login.obrigatorio,async (req, res)=>{
     const id = req.params.id;
 
     await user.findById(id)
@@ -36,7 +40,7 @@ function buscaUsers(id){
     return user.findIndex(user =>user.id == id)
 }
 
-router.put("/users/:id",(req, res)=>{
+router.put("/users/:id",login.obrigatorio,(req, res)=>{
     const id = req.params.id;
 
     user.findByIdAndUpdate(id, {$set: req.body}, (err) => {
@@ -52,7 +56,7 @@ router.put("/users/:id",(req, res)=>{
 
    
 })
-router.delete("/users/:id",(req, res)=>{
+router.delete("/users/:id",login.obrigatorio,(req, res)=>{
     const id = req.params.id;
 
     user.findByIdAndDelete(id, (err) => {

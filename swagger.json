@@ -12,7 +12,7 @@
 },
 "servers":[
     {
-    "url":"http://localhost:3001",
+    "url":"http://localhost:3000",
     "description": "Local server"
     }
 ],
@@ -171,36 +171,102 @@
                     }
                 }
             }
-        },
-        "get":{
-            "tags":["Admin / Usuários"],
-            "description":"Cadastrar de usuários",
-            "operationId":"registroUsuario",
-            "security":[{"bearerAuth": [] }],
-            "requestBody":{
-              "description":"Dados necessários para criar um novo usuário",
-              "content":{
-                "application/json":{
-                    "schema":{
-                      "$ref":"#/components/schemas/Manipula-Usuarios"
-                    },
-                    "examples":{
-                        "Cadatro de Usuarios":{
-                            "value":{
-                                "id": "001",
-                                "name": "David para dev",
-                                "email":"david_para_dev_tallos@gmail.com",
-                                "password":"Pr@45678",
-                                "nivel":1
-                            }
+        }
+       
+    },
+    "/admin/users":{
+    "get":{
+      "tags":["Admin/Usuários"],
+        "description":"Exibir usuários",
+        "operationId":"registroUsuario",
+        "security":[{"bearerAuth": [] }],
+        "requestBody":{
+          "description":"Dados necessários para criar um novo usuário",
+          "content":{
+            "application/json":{
+                "schema":{
+                  "$ref":"#/components/schemas/Manipula-Usuarios"
+                },
+                "examples":{
+                    "Cadatro de Usuarios":{
+                        "value":{
+                            "id": "001",
+                            "name": "David para dev",
+                            "email":"david_para_dev_tallos@gmail.com",
+                            "password":"Pr@45678",
+                            "nivel":1
+                        }
 
+                    }
+                }
+               
+            }
+          }
+
+        },
+        "responses":{
+            "200":{
+                "description": "Sucess",
+                "content":{
+                    "application/json":{
+                        "schema":{
+                            "type":"object",
+                            "$ref":"#/components/schemas/Manipula-Usuarios"
+                        
                         }
                     }
-                   
-                }
-              }
 
+                }
             },
+            "400":{
+                "description": "Bad Request",
+                "content":{
+                    "application/json":{
+                        "schema":{
+                            "properties":{
+                                "error":{
+                                    "type":"boolean"
+                                 },
+                                 "message":{
+                                    "type":"string"
+                                 },
+                                 "data":{
+                                    "type":"object"
+                                 }
+                                }
+                        }
+                    }
+
+                }
+            },
+            "500":{
+                "description": "Server Error",
+                "content":{
+                    "application/json":{
+                        "schema":{
+                        
+                        }
+                    }
+
+                }
+            }
+           }   }
+    },
+    "/admin/users/:id":{
+        "get":{
+         "tags":["Admin/Usuários"],
+            "description":"Exibir usuários",
+            "operationId":"registroUsuario",
+            "security":[{"bearerAuth": [] }],
+            "parameters":[
+                {
+                    "name":"id",
+                    "in":"query",
+                    "description": "Usuario ID",
+                    "required":true
+                }
+            ],
+          
             "responses":{
                 "200":{
                     "description": "Sucess",
@@ -212,7 +278,7 @@
                             
                             }
                         }
-
+    
                     }
                 },
                 "400":{
@@ -233,7 +299,7 @@
                                     }
                             }
                         }
-
+    
                     }
                 },
                 "500":{
@@ -244,13 +310,161 @@
                             
                             }
                         }
-
+    
                     }
                 }
+               }   }
+        },
+        "/admin/users/id":{
+            "put":{
+             "tags":["Admin/Usuários"],
+                "description":"Exibir usuários",
+                "operationId":"registroUsuario",
+                "security":[{"bearerAuth": [] }],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"query",
+                        "description": "Usuario ID",
+                        "required":true
+                    }
+                ],  "requestBody":{
+                    "description":"Dados necessários para criar um novo usuário",
+                    "content":{
+                      "application/json":{
+                          "schema":{
+                            "$ref":"#/components/schemas/Cadastra-Usuarios"
+                          },
+                          "examples":{
+                              "Cadatro de Usuarios":{
+                                  "value":{
+                                      "name": "David para dev",
+                                      "email":"david_para_dev_tallos@gmail.com",
+                                      "password":"12345678",
+                                      "nivel":1
+                                  }
+      
+                              }
+                          }
+                         
+                      }
+                    }
+      
+                  },
+              
+                "responses":{
+                    "200":{
+                        "description": "Sucess",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Manipula-Usuarios"
+                                
+                                }
+                            }
+        
+                        }
+                    },
+                    "400":{
+                        "description": "Bad Request",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "properties":{
+                                        "error":{
+                                            "type":"boolean"
+                                         },
+                                         "message":{
+                                            "type":"string"
+                                         },
+                                         "data":{
+                                            "type":"object"
+                                         }
+                                        }
+                                }
+                            }
+        
+                        }
+                    },
+                    "500":{
+                        "description": "Server Error",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                
+                                }
+                            }
+        
+                        }
+                    }
+                   }   }
+            },
+        " /admin/users/:id":{
+            "delete":{
+                 "tags":["Admin/Usuários"],
+                "description":"Exibir usuários",
+                "operationId":"registroUsuario",
+                "security":[{"bearerAuth": [] }],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"query",
+                        "description": "Usuario ID",
+                        "required":true
+                    }
+                ],
+              
+                "responses":{
+                    "200":{
+                        "description": "Sucess",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Manipula-Usuarios"
+                                
+                                }
+                            }
+        
+                        }
+                    },
+                    "400":{
+                        "description": "Bad Request",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "properties":{
+                                        "error":{
+                                            "type":"boolean"
+                                         },
+                                         "message":{
+                                            "type":"string"
+                                         },
+                                         "data":{
+                                            "type":"object"
+                                         }
+                                        }
+                                }
+                            }
+        
+                        }
+                    },
+                    "500":{
+                        "description": "Server Error",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                
+                                }
+                            }
+        
+                        }
+                    }
+                   }   }
             }
-        }
-    }
 },
+
 "components":{
     "schemas":{
         "Cadastra-Usuarios":{
